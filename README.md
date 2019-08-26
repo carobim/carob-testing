@@ -1,18 +1,18 @@
-# TsunagariC-Testing
+# Tsunagari-Testing
 
-![MIT Licensed](https://img.shields.io/github/license/pmer/TsunagariC-Testing.svg)
-[![Build Status](https://travis-ci.org/pmer/TsunagariC-Testing.svg?branch=master)](https://travis-ci.org/pmer/TsunagariC-Testing)
-[![LoC](https://tokei.rs/b1/github/pmer/TsunagariC-Testing)](https://github.com/Aaronepower/tokei)
+![MIT Licensed](https://img.shields.io/github/license/TsunagariEngine/Tsunagari-Testing.svg)
+[![Build Status](https://travis-ci.org/TsunagariEngine/Tsunagari-Testing.svg?branch=master)](https://travis-ci.org/TsunagariEngine/Tsunagari-Testing)
+[![LoC](https://tokei.rs/b1/github/TsunagariEngine/Tsunagari-Testing)](https://github.com/Aaronepower/tokei)
 
-A tech demo world for [TsunagariC](https://github.com/pmer/TsunagariC).
+A tech demo world for [Tsunagari](https://github.com/TsunagariEngine/Tsunagari).
 
 ## Setup
 
 ### Cloning
 
 ```bash
-git clone --recursive https://github.com/pmer/TsunagariC-Testing.git
-cd TsunagariC-Testing
+git clone --recursive https://github.com/TsunagariEngine/Tsunagari-Testing.git
+cd Tsunagari-Testing
 ```
 
 ### Acquiring `Autumn_Forest.oga`
@@ -84,15 +84,15 @@ cd ..
 Build the resources:
 
 ```bash
-TsunagariC/scripts/build-config.sh
-TsunagariC/scripts/build-world.sh
+Tsunagari/scripts/build-config.sh
+Tsunagari/scripts/build-world.sh
 ```
 
 Build the application bundle/install to bin:
 
 ```bash
 # macOS
-TsunagariC/scripts/build-bundle-debug.sh
+Tsunagari/scripts/build-bundle-debug.sh
 ```
 
 ```bash

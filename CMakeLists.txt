@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
 project(TsunagariTestingWorld
-    DESCRIPTION "Sample world for TsunagariC"
-    HOMEPAGE_URL "https://github.com/pmer/TsunagariC-Testing"
+    DESCRIPTION "Sample world for Tsunagari"
+    HOMEPAGE_URL "https://github.com/TsunagariEngine/Tsunagari-Testing"
     LANGUAGES CXX
 )
 
-add_subdirectory(TsunagariC)
+add_subdirectory(Tsunagari)
 
 if(WIN32 OR APPLE)
     set(EXE "Tsu")
