@@ -1,18 +1,17 @@
 language: cpp
 
 os: osx
-osx_image: xcode10.2
+osx_image: xcode11
 
 addons:
   homebrew:
     packages:
-      - cmake
-      - libgosu
+      - sdl2
       - sdl2_image
       - sdl2_mixer
 
 script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake .. -DAV_SDL2=On
   - cmake --build .
