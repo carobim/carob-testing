@@ -35,50 +35,28 @@
 #include "areas/grove06.h"
 #include "areas/secret-room.h"
 #include "core/log.h"
+#include "util/hashtable.h"
+#include "util/string.h"
 
-DataWorld&
-DataWorld::instance() noexcept {
-    static auto globalTestingDataWorld = new TestingDataWorld;
-    return *globalTestingDataWorld;
-}
+static Hashmap<String, DataArea*> areas;
 
+StringView DataWorld::name = "Testing World";
+StringView DataWorld::author = "Michael Reiley and Paul Merrill";
+StringView DataWorld::version = "1";
 
-TestingDataWorld::TestingDataWorld() noexcept {
-    Log::info("TestingDataWorld", "Hello!");
+enum Conf::MovementMode DataWorld::moveMode = Conf::TILE;
+rvec2 DataWorld::viewportResolution = {240, 160};
+int DataWorld::inputPersistDelayInitial = 300;
+int DataWorld::inputPersistDelayConsecutive = 100;
+StringView DataWorld::startArea = "areas/grove01.json";
+StringView DataWorld::playerFile = "entities/player/player.json";
+StringView DataWorld::playerStartPhase = "down";
+vicoord DataWorld::startCoords = {15, 22, 0.0};
 
-    about.name = "Testing World";
-    about.author = "Michael Reiley and Paul Merrill";
-    about.version = "1";
+StringView DataWorld::datafile = "./testing.world";
 
-    parameters.moveMode = Conf::MovementMode::TILE;
-
-    parameters.viewportResolution = {240, 160};
-
-    parameters.input.persistDelay.initial = 300;
-    parameters.input.persistDelay.consecutive = 100;
-
-    parameters.gameStart.player.file = "entities/player/player.json";
-    parameters.gameStart.player.phase = "down";
-
-    StringView area;
-    vicoord coords;
-
-    switch (1) {
-    case 0:
-        area = "areas/basement.json";
-        coords = {2, 3, 0.0};
-        break;
-    case 1:
-        area = "areas/grove01.json";
-        coords = {15, 22, 0.0};
-        break;
-    }
-
-    parameters.gameStart.area = area;
-    parameters.gameStart.coords = coords;
-
-    datafile = "./testing.world";
-
+bool
+DataWorld::init() noexcept {
     areas["areas/basement.json"] = new DataArea;  // no special logic
     areas["areas/bigtree.json"] = new BigTreeArea;
     areas["areas/cave01.json"] = new Cave01;
@@ -87,10 +65,11 @@ TestingDataWorld::TestingDataWorld() noexcept {
     areas["areas/grove04.json"] = new Grove04;
     areas["areas/grove06.json"] = new Grove06;
     areas["areas/secret_room.json"] = new SecretRoom;
-}
-
-bool
-TestingDataWorld::init() noexcept {
     Log::info("TestingDataWorld", "Ready to go");
     return true;
+}
+
+DataArea*
+DataWorld::area(StringView areaName) noexcept {
+    return areas[areaName];
 }
