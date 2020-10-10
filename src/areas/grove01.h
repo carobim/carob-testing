@@ -30,6 +30,8 @@
 #include "data/data-area.h"
 #include "world/clouds.h"
 
+class Entity;
+
 class Grove01 : public DataArea {
     Clouds clouds;
 

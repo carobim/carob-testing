@@ -2,7 +2,7 @@
 ** Tsunagari Tile Engine              **
 ** clouds.h                           **
 ** Copyright 2014      Michael Reiley **
-** Copyright 2014-2019 Paul Merrill   **
+** Copyright 2014-2020 Paul Merrill   **
 ***************************************/
 
 // **********
@@ -30,9 +30,10 @@
 
 #include "core/overlay.h"
 #include "core/vec.h"
-#include "data/data-area.h"
 #include "util/rc.h"
 #include "util/vector.h"
+
+class DataArea;
 
 //! Create clouds that drift left across an Area.
 class Clouds {

@@ -1,7 +1,7 @@
 /*************************************
 ** Tsunagari Tile Engine            **
 ** cave01.h                         **
-** Copyright 2016-2019 Paul Merrill **
+** Copyright 2016-2020 Paul Merrill **
 *************************************/
 
 // **********
@@ -28,6 +28,8 @@
 #define SRC_AREAS_CAVE01_H_
 
 #include "data/data-area.h"
+
+class Entity;
 
 class Cave01 : public DataArea {
  public:

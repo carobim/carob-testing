@@ -1,7 +1,7 @@
 /*************************************
 ** Tsunagari Tile Engine            **
 ** grove-house.h                    **
-** Copyright 2016-2019 Paul Merrill **
+** Copyright 2016-2020 Paul Merrill **
 *************************************/
 
 // **********
@@ -28,6 +28,8 @@
 #define SRC_AREAS_GROVE_HOUSE_H_
 
 #include "data/data-area.h"
+
+class Entity;
 
 class GroveHouse : public DataArea {
     bool openedDoor = false;
