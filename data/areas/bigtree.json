@@ -641,10 +641,10 @@
     "tileheight": 16,
     "tilesets": [{
         "firstgid": 1,
-        "source": "tiles\/forest.png.json"
+        "source": "tiles\/forest.bmp.json"
     }, {
         "firstgid": 324,
-        "source": "tiles\/baum.png.json"
+        "source": "tiles\/baum.bmp.json"
     }],
     "tilewidth": 16,
     "version": 1,

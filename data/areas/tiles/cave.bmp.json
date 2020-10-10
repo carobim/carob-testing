@@ -1,8 +1,8 @@
 {
-    "image": "cave.png",
+    "image": "cave.bmp",
     "imageheight": 336,
     "imagewidth": 256,
-    "name": "cave.png",
+    "name": "cave.bmp",
     "tileheight": 16,
     "tilewidth": 16
 }

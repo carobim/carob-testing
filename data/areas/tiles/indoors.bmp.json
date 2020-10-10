@@ -1,8 +1,8 @@
 {
-    "image": "indoors.png",
+    "image": "indoors.bmp",
     "imageheight": 192,
     "imagewidth": 112,
-    "name": "indoors.png",
+    "name": "indoors.bmp",
     "tileheight": 16,
     "tileproperties": {
         "13": {

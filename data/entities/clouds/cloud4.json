@@ -4,7 +4,7 @@
 		"sheet": {
 			"tile_width": 32,
 			"tile_height": 23,
-			"path": "entities/clouds/cloud4.png"
+			"path": "entities/clouds/cloud4.bmp"
 		},
 		"phases": {
 			"stance": {"frame": 0}

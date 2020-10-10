@@ -1,8 +1,8 @@
 {
-    "image": "baum.png",
+    "image": "baum.bmp",
     "imageheight": 128,
     "imagewidth": 128,
-    "name": "baum.png",
+    "name": "baum.bmp",
     "tileheight": 16,
     "tilewidth": 16
 }

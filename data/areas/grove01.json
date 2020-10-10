@@ -1215,16 +1215,16 @@
     "nextobjectid": 92,
     "orientation": "orthogonal",
     "properties": {
-        "music": "music\/Autumn_Forest.oga",
+        "music": "music\/Autumn_Forest.opus",
         "name": "Grove 01"
     },
     "tileheight": 16,
     "tilesets": [{
         "firstgid": 1,
-        "source": "tiles\/forest.png.json"
+        "source": "tiles\/forest.bmp.json"
     }, {
         "firstgid": 324,
-        "source": "tiles\/objects.png.json"
+        "source": "tiles\/objects.bmp.json"
     }],
     "tilewidth": 16,
     "version": 1,

@@ -1,8 +1,8 @@
 {
-    "image": "forest.png",
+    "image": "forest.bmp",
     "imageheight": 304,
     "imagewidth": 272,
-    "name": "forest.png",
+    "name": "forest.bmp",
     "tileheight": 16,
     "tileproperties": {
         "29": {

@@ -432,10 +432,10 @@
     "tileheight": 16,
     "tilesets": [{
         "firstgid": 1,
-        "source": "tiles\/cave.png.json"
+        "source": "tiles\/cave.bmp.json"
     }, {
         "firstgid": 337,
-        "source": "tiles\/objects.png.json"
+        "source": "tiles\/objects.bmp.json"
     }],
     "tilewidth": 16,
     "version": 1,

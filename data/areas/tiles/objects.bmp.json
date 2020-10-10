@@ -1,8 +1,8 @@
 {
-    "image": "objects.png",
+    "image": "objects.bmp",
     "imageheight": 112,
     "imagewidth": 112,
-    "name": "objects.png",
+    "name": "objects.bmp",
     "tileheight": 16,
     "tileproperties": {
         "1": {

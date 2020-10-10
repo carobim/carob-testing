@@ -4,7 +4,7 @@
 		"sheet": {
 			"tile_width": 16,
 			"tile_height": 18,
-			"path": "entities/player/player.png"
+			"path": "entities/player/player.bmp"
 		},
 		"phases": {
 			"down": {"frame": 7},
