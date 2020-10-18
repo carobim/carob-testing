@@ -1,7 +1,7 @@
 /*************************************
 ** Tsunagari Tile Engine            **
 ** grove01.cpp                      **
-** Copyright 2016-2019 Paul Merrill **
+** Copyright 2016-2020 Paul Merrill **
 *************************************/
 
 // **********
@@ -49,9 +49,9 @@ Grove01::Grove01() noexcept {
 void
 Grove01::onLoad() noexcept {
     // Create a wandering wizard NPC.
-    auto wizard = area->spawnNPC(
+    Character* wizard = area->spawnNPC(
             "entities/wizard/wizard.json", vicoord{16, 22, 0.0}, "down");
-    wizard->attach(AIWanderTile(wizard.get(), 4, 1000));
+    wizard->attach(AIWanderTile(wizard, 4, 1000));
 
     // And a few drifting cloud Overlays.
     for (int i = 0; i < 5; i++) {
@@ -121,11 +121,11 @@ void
 Grove01::toggleMusic() noexcept {
     if (musicPaused) {
         Music::resume();
-        Log::info("grove01", "Unpausing music!");
+        logInfo("grove01", "Unpausing music!");
     }
     else {
         Music::pause();
-        Log::info("grove01", "Pausing music!");
+        logInfo("grove01", "Pausing music!");
     }
     musicPaused = !musicPaused;
 }

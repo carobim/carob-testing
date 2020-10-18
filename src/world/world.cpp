@@ -2,7 +2,7 @@
 ** Tsunagari Tile Engine              **
 ** world.cpp                          **
 ** Copyright 2014      Michael Reiley **
-** Copyright 2014-2019 Paul Merrill   **
+** Copyright 2014-2020 Paul Merrill   **
 ***************************************/
 
 // **********
@@ -65,7 +65,7 @@ DataWorld::init() noexcept {
     areas["areas/grove04.json"] = new Grove04;
     areas["areas/grove06.json"] = new Grove06;
     areas["areas/secret_room.json"] = new SecretRoom;
-    Log::info("TestingDataWorld", "Ready to go");
+    logInfo("TestingDataWorld", "Ready to go");
     return true;
 }
 

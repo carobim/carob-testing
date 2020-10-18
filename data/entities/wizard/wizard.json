@@ -1,5 +1,5 @@
 {
-	"speed": 1.0,  // movement speed in tiles per second
+	"speed": 1.0,
 	"sprite": {
 		"sheet": {
 			"tile_width": 16,
@@ -8,13 +8,9 @@
 		},
 		"phases": {
 			"down": {"frame": 7},
-			"down-left": {"frame": 7},
 			"left": {"frame": 10},
-			"up-left": {"frame": 1},
 			"up": {"frame": 1},
-			"up-right": {"frame": 1},
 			"right": {"frame": 4},
-			"down-right": {"frame": 7},
 
 			"moving up": {"speed": 6.0, "frames": [0,1,2,1]},
 			"moving right": {"speed": 6.0, "frames": [3,4,5,4]},
@@ -24,5 +20,5 @@
 	},
 	"sounds": {
 		"step": "sounds/step.oga"
-	},
+	}
 }

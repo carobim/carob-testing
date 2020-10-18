@@ -1,5 +1,5 @@
 {
-	"speed": 0.2,  // movement speed in tiles per second
+	"speed": 0.2,
 	"sprite": {
 		"sheet": {
 			"tile_width": 32,

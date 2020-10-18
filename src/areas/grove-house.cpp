@@ -1,7 +1,7 @@
 /*************************************
 ** Tsunagari Tile Engine            **
 ** grove-house.cpp                  **
-** Copyright 2016-2019 Paul Merrill **
+** Copyright 2016-2020 Paul Merrill **
 *************************************/
 
 // **********
@@ -41,7 +41,7 @@ GroveHouse::GroveHouse() noexcept {
 void
 GroveHouse::onOpenDoor(Entity&) noexcept {
     if (openedDoor) {
-        Log::err("grove_house", "onOpenDoor called again");
+        logErr("grove_house", "onOpenDoor called again");
         return;
     }
     openedDoor = true;

@@ -1,9 +1,5 @@
-cmake_minimum_required(VERSION 3.13)
-project(TsunagariTestingWorld
-    DESCRIPTION "Sample world for Tsunagari"
-    HOMEPAGE_URL "https://github.com/TsunagariEngine/Tsunagari-Testing"
-    LANGUAGES CXX
-)
+cmake_minimum_required(VERSION 3.8)
+project(TsunagariTestingWorld LANGUAGES CXX)
 
 add_subdirectory(Tsunagari)
 
@@ -13,34 +9,35 @@ else()
     set(EXE "tsu")
 endif()
 
-add_executable(${EXE})
+set(HERE ${CMAKE_CURRENT_LIST_DIR})
+
+add_executable(${EXE}
+    ${HERE}/src/ai/ai-wander.cpp
+    ${HERE}/src/ai/ai-wander.h
+    ${HERE}/src/areas/big-tree.cpp
+    ${HERE}/src/areas/big-tree.h
+    ${HERE}/src/areas/cave01.cpp
+    ${HERE}/src/areas/cave01.h
+    ${HERE}/src/areas/grove01.cpp
+    ${HERE}/src/areas/grove01.h
+    ${HERE}/src/areas/grove04.cpp
+    ${HERE}/src/areas/grove04.h
+    ${HERE}/src/areas/grove06.cpp
+    ${HERE}/src/areas/grove06.h
+    ${HERE}/src/areas/grove-house.cpp
+    ${HERE}/src/areas/grove-house.h
+    ${HERE}/src/areas/secret-room.cpp
+    ${HERE}/src/areas/secret-room.h
+    ${HERE}/src/world/clouds.cpp
+    ${HERE}/src/world/clouds.h
+    ${HERE}/src/world/world.cpp
+    ${HERE}/src/world/world.h
+)
+
 target_include_directories(${EXE} PRIVATE src)
 target_link_libraries(${EXE} tsunagari)
 
-target_sources(${EXE}
-    PRIVATE src/ai/ai-wander.cpp
-            src/ai/ai-wander.h
-            src/areas/big-tree.cpp
-            src/areas/big-tree.h
-            src/areas/cave01.cpp
-            src/areas/cave01.h
-            src/areas/grove01.cpp
-            src/areas/grove01.h
-            src/areas/grove04.cpp
-            src/areas/grove04.h
-            src/areas/grove06.cpp
-            src/areas/grove06.h
-            src/areas/grove-house.cpp
-            src/areas/grove-house.h
-            src/areas/secret-room.cpp
-            src/areas/secret-room.h
-            src/world/clouds.cpp
-            src/world/clouds.h
-            src/world/world.cpp
-            src/world/world.h
-)
-
 get_target_property(EXE_SOURCES ${EXE} SOURCES)
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/src
+source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src
     FILES ${EXE_SOURCES}
 )
