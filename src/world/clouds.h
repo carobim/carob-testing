@@ -30,7 +30,6 @@
 
 #include "core/overlay.h"
 #include "core/vec.h"
-#include "util/rc.h"
 #include "util/vector.h"
 
 class DataArea;
@@ -62,7 +61,7 @@ class Clouds {
 
     float z;
 
-    Vector<Rc<Overlay>> clouds;
+    Vector<Overlay*> clouds;
 };
 
 #endif  // SRC_WORLD_CLOUDS_H_

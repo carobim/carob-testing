@@ -2,7 +2,7 @@
 ** Tsunagari Tile Engine              **
 ** clouds.cpp                         **
 ** Copyright 2014      Michael Reiley **
-** Copyright 2014-2019 Paul Merrill   **
+** Copyright 2014-2020 Paul Merrill   **
 ***************************************/
 
 // **********
@@ -95,7 +95,7 @@ Clouds::createCloudAt(DataArea& dataArea, vicoord tilePosition) noexcept {
     }
 
     String type = String("entities/clouds/cloud") << randInt(1, 4) << ".json";
-    Rc<Overlay> cloud =
+    Overlay* cloud =
             dataArea.area->spawnOverlay(type, tilePosition, "stance");
 
     clouds.push_back(cloud);
