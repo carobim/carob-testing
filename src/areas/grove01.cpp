@@ -107,7 +107,7 @@ Grove01::onOpenChest(Entity&) noexcept {
 
     openedChest = true;
 
-    auto objects = area->getTileSet("areas/tiles/objects.png");
+    auto objects = area->getTileSet("areas/tiles/objects.bmp");
 
     // Change to closed chest to open chest. Bottom and top halves.
     area->grid.setTileType(vicoord{5, 20, -0.1}, objects->at(1, 5));

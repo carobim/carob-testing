@@ -57,7 +57,7 @@ GroveHouse::onOpenDoor(Entity&) noexcept {
         Exit{"areas/secret_room.json", 4, 5, 0.0};
     area->grid.flags[door] &= ~TILE_NOWALK;
 
-    auto tileSet = area->getTileSet("areas/tiles/indoors.png");
+    auto tileSet = area->getTileSet("areas/tiles/indoors.bmp");
     assert_(tileSet);
 
     // closed exit on north wall, graphics layer
