@@ -2,7 +2,7 @@
 ** Tsunagari Tile Engine             **
 ** ai-wander.cpp                     **
 ** Copyright 2014      Michael Riley **
-** Copyright 2014-2019 Paul Merrill  **
+** Copyright 2014-2020 Paul Merrill  **
 **************************************/
 
 // **********
@@ -76,7 +76,7 @@ maybeMove(Character* c, int chance) noexcept {
 
 Function<void(time_t)>
 AIWanderTile(Character* c, int chance, time_t tryEvery) noexcept {
-    assert_(Conf::moveMode == Conf::MovementMode::TILE);
+    assert_(confMoveMode == MoveMode::TILE);
 
     Cooldown cooldown(tryEvery);
     return [c, chance, cooldown](time_t dt) mutable {
@@ -90,7 +90,7 @@ AIWanderTile(Character* c, int chance, time_t tryEvery) noexcept {
 
 Function<void()>
 AIWanderTurn(Character* c, int chance) noexcept {
-    assert_(Conf::moveMode == Conf::MovementMode::TURN);
+    assert_(confMoveMode == MoveMode::TURN);
 
     return [c, chance]() mutable { maybeMove(c, chance); };
 }

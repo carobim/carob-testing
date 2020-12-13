@@ -25,7 +25,7 @@
 // IN THE SOFTWARE.
 // **********
 
-#include "world/world.h"
+#include "data/data-world.h"
 
 #include "areas/big-tree.h"
 #include "areas/cave01.h"
@@ -40,23 +40,23 @@
 
 static Hashmap<String, DataArea*> areas;
 
-StringView DataWorld::name = "Testing World";
-StringView DataWorld::author = "Michael Reiley and Paul Merrill";
-StringView DataWorld::version = "1";
+StringView dataWorldName = "Testing World";
+StringView dataWorldAuthor = "Michael Reiley and Paul Merrill";
+StringView dataWorldVersion = "1";
 
-enum Conf::MovementMode DataWorld::moveMode = Conf::TILE;
-rvec2 DataWorld::viewportResolution = {240, 160};
-int DataWorld::inputPersistDelayInitial = 300;
-int DataWorld::inputPersistDelayConsecutive = 100;
-StringView DataWorld::startArea = "areas/grove01.json";
-StringView DataWorld::playerFile = "entities/player/player.json";
-StringView DataWorld::playerStartPhase = "down";
-vicoord DataWorld::startCoords = {15, 22, 0.0};
+enum MoveMode dataWorldMoveMode = MoveMode::TILE;
+rvec2 dataWorldViewportResolution = {240, 160};
+int dataWorldInputPersistDelayInitial = 300;
+int dataWorldInputPersistDelayConsecutive = 100;
+StringView dataWorldStartArea = "areas/grove01.json";
+StringView dataWorldPlayerFile = "entities/player/player.json";
+StringView dataWorldPlayerStartPhase = "down";
+vicoord dataWorldStartCoords = {15, 22, 0.0};
 
-StringView DataWorld::datafile = "./testing.world";
+StringView dataWorldDatafile = "./testing.world";
 
 bool
-DataWorld::init() noexcept {
+dataWorldInit() noexcept {
     areas["areas/basement.json"] = new DataArea;  // no special logic
     areas["areas/bigtree.json"] = new BigTreeArea;
     areas["areas/cave01.json"] = new Cave01;
@@ -70,6 +70,6 @@ DataWorld::init() noexcept {
 }
 
 DataArea*
-DataWorld::area(StringView areaName) noexcept {
+dataWorldArea(StringView areaName) noexcept {
     return areas[areaName];
 }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.7)
 project(TsunagariTestingWorld LANGUAGES CXX)
 
 add_subdirectory(Tsunagari)
@@ -31,13 +31,14 @@ add_executable(${EXE}
     ${HERE}/src/world/clouds.cpp
     ${HERE}/src/world/clouds.h
     ${HERE}/src/world/world.cpp
-    ${HERE}/src/world/world.h
 )
 
-target_include_directories(${EXE} PRIVATE src)
-target_link_libraries(${EXE} tsunagari)
+include_directories(${TSUNAGARI_INCLUDE_DIRECTORIES} src)
+target_link_libraries(${EXE} PRIVATE tsunagari)
 
-get_target_property(EXE_SOURCES ${EXE} SOURCES)
-source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src
-    FILES ${EXE_SOURCES}
-)
+if(NOT ${CMAKE_VERSION} VERSION_LESS 3.8.0)
+    get_target_property(EXE_SOURCES ${EXE} SOURCES)
+    source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src
+        FILES ${EXE_SOURCES}
+    )
+endif()

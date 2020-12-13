@@ -117,9 +117,9 @@ Clouds::createCloudAt(DataArea& dataArea, vicoord tilePosition) noexcept {
     dataArea.add(new InProgressTimer(driftDuration, [this, cloud]() {
         cloud->destroy();
 
-        for (auto it = clouds.begin(); it != clouds.end(); it++) {
-            if (*it == cloud) {
-                clouds.erase_unsorted(it);
+        for (size_t i = 0; i < clouds.size; i++) {
+            if (clouds[i] == cloud) {
+                clouds.erase(i);
                 break;
             }
         }
