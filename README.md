@@ -11,7 +11,7 @@ A tech demo world for [Tsunagari](https://github.com/TsunagariEngine/Tsunagari).
 ### Cloning
 
 ```bash
-git clone --recursive https://github.com/TsunagariEngine/Tsunagari-Testing.git
+git clone --recurse-submodules https://github.com/TsunagariEngine/Tsunagari-Testing.git
 cd Tsunagari-Testing
 ```
 
@@ -54,7 +54,12 @@ cd ../..
 
 ```bash
 # macOS
-brew install libgosu
+brew install sdl2 sdl2_image sdl2_mixer
+```
+
+```bash
+# Ubuntu
+sudo apt-get install cmake g++ make pkg-config libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev
 ```
 
 ### Building
@@ -65,19 +70,19 @@ Compile:
 
 ```bash
 # macOS
-mkdir build-debug
-cd build-debug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make -j $(sysctl -n hw.ncpu)
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DAV_SDL2=On
+make
 cd ..
 ```
 
 ```bash
 # Ubuntu
-mkdir build-debug
-cd build-debug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make -j $(nproc)
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DAV_SDL2=On
+make
 cd ..
 ```
 
