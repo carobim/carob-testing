@@ -4,6 +4,8 @@
 		"sheet": {
 			"tile_width": 32,
 			"tile_height": 23,
+			"num_across": 1,
+			"num_high": 1,
 			"path": "entities/clouds/cloud4.bmp"
 		},
 		"phases": {

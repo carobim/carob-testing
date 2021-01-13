@@ -7,7 +7,7 @@
     "tileproperties": {
         "1": {
             "frames": "1,8,15",
-            "speed": "1.5"
+            "speed": 1.5
         }
     },
     "tilewidth": 16

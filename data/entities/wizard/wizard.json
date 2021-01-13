@@ -4,6 +4,8 @@
 		"sheet": {
 			"tile_width": 16,
 			"tile_height": 18,
+			"num_across": 3,
+			"num_high": 4,
 			"path": "entities/wizard/wizard.bmp"
 		},
 		"phases": {
