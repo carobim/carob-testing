@@ -2,7 +2,7 @@
 ** Tsunagari Tile Engine              **
 ** world.cpp                          **
 ** Copyright 2014      Michael Reiley **
-** Copyright 2014-2020 Paul Merrill   **
+** Copyright 2014-2021 Paul Merrill   **
 ***************************************/
 
 // **********
@@ -45,7 +45,7 @@ StringView dataWorldAuthor = "Michael Reiley and Paul Merrill";
 StringView dataWorldVersion = "1";
 
 enum MoveMode dataWorldMoveMode = MoveMode::TILE;
-rvec2 dataWorldViewportResolution = {240, 160};
+fvec2 dataWorldViewportResolution = {240, 160};
 int dataWorldInputPersistDelayInitial = 300;
 int dataWorldInputPersistDelayConsecutive = 100;
 StringView dataWorldStartArea = "areas/grove01.json";

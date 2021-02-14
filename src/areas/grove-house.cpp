@@ -1,7 +1,7 @@
 /*************************************
 ** Tsunagari Tile Engine            **
 ** grove-house.cpp                  **
-** Copyright 2016-2020 Paul Merrill **
+** Copyright 2016-2021 Paul Merrill **
 *************************************/
 
 // **********
@@ -47,7 +47,7 @@ GroveHouse::onOpenDoor(Entity&) noexcept {
     openedDoor = true;
 
     // torch which activated this trigger should make "ouch" now
-    icoord torch = area->grid.virt2phys(vicoord{6, 0, 0.0});
+    ivec3 torch = area->grid.virt2phys(vicoord{6, 0, 0.0});
     area->grid.scripts[TileGrid::SCRIPT_TYPE_USE][torch] =
         (TileScript)&GroveHouse::ouchSound;
 

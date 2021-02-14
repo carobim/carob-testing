@@ -2,7 +2,7 @@
 ** Tsunagari Tile Engine              **
 ** clouds.cpp                         **
 ** Copyright 2014      Michael Reiley **
-** Copyright 2014-2020 Paul Merrill   **
+** Copyright 2014-2021 Paul Merrill   **
 ***************************************/
 
 // **********
@@ -76,7 +76,7 @@ Clouds::createCloudAt(DataArea& dataArea, vicoord tilePosition) noexcept {
 
     ivec2 tileDimensions = dataArea.area->grid.tileDim;
 
-    rcoord pixelPosition{
+    fvec3 pixelPosition{
             static_cast<float>(static_cast<int64_t>(tilePosition.x) *
                                static_cast<int64_t>(tileDimensions.x)),
             static_cast<float>(static_cast<int64_t>(tilePosition.y) *
@@ -87,8 +87,8 @@ Clouds::createCloudAt(DataArea& dataArea, vicoord tilePosition) noexcept {
             static_cast<float>(static_cast<int64_t>(tileDimensions.x) * 8);
 
     for (auto& other : clouds) {
-        rcoord otherPosition = other->getPixelCoord();
-        float dist = pixelPosition.distanceTo(otherPosition);
+        fvec3 otherPosition = other->getPixelCoord();
+        float dist = distanceTo(pixelPosition, otherPosition);
         if (dist < minimumAcceptableDistance) {
             return;
         }
