@@ -630,11 +630,11 @@
     "nextobjectid": 35,
     "orientation": "orthogonal",
     "properties": {
-        "main_music": "music\/Devotion.oga",
+        "music": "music\/Devotion.oga",
         "name": "Big Tree"
     },
     "propertytypes": {
-        "main_music": "string",
+        "music": "string",
         "name": "string"
     },
     "renderorder": "right-down",
