@@ -3,11 +3,7 @@ project(TsunagariTestingWorld LANGUAGES CXX)
 
 add_subdirectory(Tsunagari)
 
-if(WIN32 OR APPLE)
-    set(EXE "Tsu")
-else()
-    set(EXE "tsu")
-endif()
+set(EXE testing)
 
 set(HERE ${CMAKE_CURRENT_LIST_DIR})
 
