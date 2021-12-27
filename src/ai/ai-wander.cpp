@@ -3,12 +3,15 @@
 #include "tiles/character.h"
 #include "tiles/client-conf.h"
 #include "tiles/cooldown.h"
+#include "tiles/vec.h"
 #include "util/assert.h"
+#include "util/compiler.h"
+#include "util/int.h"
 #include "util/random.h"
 
 static ivec2
 randomFacing() noexcept {
-    switch (randInt(0, 3)) {
+    switch (randU32(0, 3)) {
     case 0:
         return {-1, 0};
     case 1:
@@ -36,23 +39,23 @@ doFace(Character* c) noexcept {
 
 //! Decide whether or not to move.
 static void
-maybeMove(Character* c, int chance) noexcept {
-    if (randInt(1, chance) == 1) {
+maybeMove(Character* c, U32 chance) noexcept {
+    if (randU32(1, chance) == 1) {
         // doMove(c.lock());
         doMove(c);
     }
-    else if (randInt(1, chance) == 1) {
+    else if (randU32(1, chance) == 1) {
         // doFace(c.lock());
         doFace(c);
     }
 }
 
-Function<void(time_t)>
-AIWanderTile(Character* c, int chance, time_t tryEvery) noexcept {
+Function<void(Time)>
+AIWanderTile(Character* c, int chance, Time tryEvery) noexcept {
     assert_(confMoveMode == MoveMode::TILE);
 
     Cooldown cooldown(tryEvery);
-    return [c, chance, cooldown](time_t dt) mutable {
+    return [c, chance, cooldown](Time dt) mutable {
         cooldown.advance(dt);
         if (cooldown.hasExpired()) {
             cooldown.wrapAll();
@@ -62,7 +65,7 @@ AIWanderTile(Character* c, int chance, time_t tryEvery) noexcept {
 }
 
 Function<void()>
-AIWanderTurn(Character* c, int chance) noexcept {
+AIWanderTurn(Character* c, U32 chance) noexcept {
     assert_(confMoveMode == MoveMode::TURN);
 
     return [c, chance]() mutable { maybeMove(c, chance); };

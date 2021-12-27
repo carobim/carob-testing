@@ -7,8 +7,13 @@
 #include "areas/grove04.h"
 #include "areas/grove06.h"
 #include "areas/secret-room.h"
+#include "data/data-area.h"
+#include "tiles/client-conf.h"
 #include "tiles/log.h"
+#include "util/compiler.h"
 #include "util/hashtable.h"
+#include "util/int.h"
+#include "util/string-view.h"
 #include "util/string.h"
 
 static Hashmap<String, DataArea*> areas;
@@ -19,8 +24,8 @@ StringView dataWorldVersion = "1";
 
 enum MoveMode dataWorldMoveMode = MoveMode::TILE;
 fvec2 dataWorldViewportResolution = {240, 160};
-int dataWorldInputPersistDelayInitial = 300;
-int dataWorldInputPersistDelayConsecutive = 100;
+I32 dataWorldInputPersistDelayInitial = 300;
+I32 dataWorldInputPersistDelayConsecutive = 100;
 StringView dataWorldStartArea = "areas/grove01.json";
 StringView dataWorldPlayerFile = "entities/player/player.json";
 StringView dataWorldPlayerStartPhase = "down";

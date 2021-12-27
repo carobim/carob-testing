@@ -4,6 +4,8 @@
 #include "data/inprogress-timer.h"
 #include "tiles/area.h"
 #include "tiles/player.h"
+#include "util/compiler.h"
+#include "util/int.h"
 
 /*
 #include <future>
@@ -71,7 +73,7 @@ Cave01::onLoad() noexcept {
         add(new InProgressTimer(
                 3000,
                 [this](float percent) {
-                    uint8_t alpha = static_cast<uint8_t>(255 - percent * 255);
+                    U8 alpha = static_cast<U8>(255 - percent * 255);
                     area->setColorOverlay(alpha, 0, 0, 0);
                 },
                 [this]() {

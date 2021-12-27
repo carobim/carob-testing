@@ -2,6 +2,7 @@
 #define SRC_AREAS_GROVE_HOUSE_H_
 
 #include "data/data-area.h"
+#include "util/compiler.h"
 
 class Entity;
 

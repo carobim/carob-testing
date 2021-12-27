@@ -2,6 +2,7 @@
 #define SRC_AREAS_CAVE01_H_
 
 #include "data/data-area.h"
+#include "util/compiler.h"
 
 class Entity;
 

@@ -2,6 +2,7 @@
 #define SRC_AREAS_GROVE01_H_
 
 #include "data/data-area.h"
+#include "util/compiler.h"
 #include "world/clouds.h"
 
 class Entity;

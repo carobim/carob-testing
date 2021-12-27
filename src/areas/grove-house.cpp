@@ -3,7 +3,9 @@
 #include "tiles/area.h"
 #include "tiles/log.h"
 #include "tiles/tile.h"
+#include "tiles/vec.h"
 #include "util/assert.h"
+#include "util/compiler.h"
 
 GroveHouse::GroveHouse() noexcept {
     scripts[StringView("open_door")] = (TileScript)&GroveHouse::onOpenDoor;
@@ -26,12 +28,12 @@ GroveHouse::onOpenDoor(Entity&) noexcept {
         (TileScript)&GroveHouse::ouchSound;
 
     // closed exit on north wall, object layer
-    auto door = area->grid.virt2phys(vicoord{4, 0, 0.0});
+    ivec3 door = area->grid.virt2phys(vicoord{4, 0, 0.0});
     area->grid.exits[EXIT_NORMAL][door] =
         Exit{"areas/secret_room.json", 4, 5, 0.0};
     area->grid.flags[door] &= ~TILE_NOWALK;
 
-    auto tileSet = area->getTileSet("areas/tiles/indoors.bmp");
+    TileSet* tileSet = area->getTileSet("areas/tiles/indoors.bmp");
     assert_(tileSet);
 
     // closed exit on north wall, graphics layer

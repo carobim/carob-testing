@@ -1,8 +1,10 @@
 #ifndef SRC_WORLD_CLOUDS_H_
 #define SRC_WORLD_CLOUDS_H_
 
-#include "core/overlay.h"
-#include "core/vec.h"
+#include "tiles/overlay.h"
+#include "tiles/vec.h"
+#include "util/compiler.h"
+#include "util/int.h"
 #include "util/vector.h"
 
 class DataArea;
@@ -23,8 +25,8 @@ class Clouds {
     //! milliseconds.  May do nothing if the cloud would have appeared to
     //! close to another cloud (which would be ugly).
     void createCloudsRegularly(DataArea& dataArea,
-                               int minMS,
-                               int maxMS) noexcept;
+                               U32 minMS,
+                               U32 maxMS) noexcept;
 
  private:
     //! Create a cloud, move it left until out of area, then destroy it.

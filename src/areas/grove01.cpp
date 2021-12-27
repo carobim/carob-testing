@@ -2,15 +2,18 @@
 
 #include "ai/ai-wander.h"
 #include "data/inprogress-timer.h"
+#include "os/c.h"
 #include "tiles/area.h"
 #include "tiles/log.h"
 #include "tiles/music.h"
 #include "tiles/npc.h"
+#include "util/compiler.h"
+#include "util/int.h"
 
 // Circular in-out ease
 static double
 ease(double x) noexcept {
-    return 0.5 * sin(M_PI * x - M_PI / 2) + 0.5;
+    return 0.5 * sinf(M_PI * x - M_PI / 2) + 0.5;
 }
 
 Grove01::Grove01() noexcept {
@@ -32,13 +35,13 @@ Grove01::onLoad() noexcept {
         clouds.createRandomCloud(*this);
     }
 
-    const int second = 1000;
-    clouds.createCloudsRegularly(*this, 10 * second, 20 * second);
+#define SECOND 1000
+    clouds.createCloudsRegularly(*this, 10 * SECOND, 20 * SECOND);
 }
 
 void
 Grove01::onWell(Entity&) noexcept {
-    const int maxAlpha = 192;
+#define MAX_ALPHA 192
 
     if (drinking) {
         return;
@@ -50,17 +53,17 @@ Grove01::onWell(Entity&) noexcept {
 
     add(new InProgressTimer(
             1000,
-            [this, maxAlpha](double percent) {
-                uint8_t alpha;
+            [this](double percent) {
+                U8 alpha;
                 if (percent < 0.5) {
-                    alpha = (uint8_t)(maxAlpha * ease(2 * percent));
+                    alpha = (U8)(MAX_ALPHA * ease(2 * percent));
                 }
                 else {
-                    alpha = (uint8_t)(maxAlpha * ease(2 * (1 - percent)));
+                    alpha = (U8)(MAX_ALPHA * ease(2 * (1 - percent)));
                 }
                 area->setColorOverlay(alpha, 255, 255, 255);
             },
-            [this, maxAlpha]() {
+            [this]() {
                 area->setColorOverlay(0, 0, 0, 0);
                 drinking = false;
             }));
@@ -81,7 +84,7 @@ Grove01::onOpenChest(Entity&) noexcept {
 
     openedChest = true;
 
-    auto objects = area->getTileSet("areas/tiles/objects.bmp");
+    TileSet* objects = area->getTileSet("areas/tiles/objects.bmp");
 
     // Change to closed chest to open chest. Bottom and top halves.
     area->grid.setTileType(vicoord{5, 20, -0.1}, objects->at(1, 5));
