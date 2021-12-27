@@ -1,4 +1,9 @@
 cmake_minimum_required(VERSION 3.7)
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+    set(CMAKE_BUILD_TYPE "DEFAULT")
+endif()
+
 project(TsunagariTestingWorld LANGUAGES CXX)
 
 add_subdirectory(Tsunagari)

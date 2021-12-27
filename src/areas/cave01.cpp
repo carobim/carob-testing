@@ -1,7 +1,6 @@
 #include "areas/cave01.h"
 
-#include "data/inprogress-sound.h"
-#include "data/inprogress-timer.h"
+#include "data/action.h"
 #include "tiles/area.h"
 #include "tiles/player.h"
 #include "util/compiler.h"
@@ -47,8 +46,27 @@ class TimelineExec {
 };
 */
 
+static void
+fadeIn(DataArea*, void* data, float progress) noexcept {
+    fromCast(Area, area, data);
+
+    if (progress < 1.0) {
+        U8 alpha = static_cast<U8>(255 - progress * 255);
+        area->setColorOverlay(alpha, 0, 0, 0);
+    }
+    else {
+        area->setColorOverlay(0, 0, 0, 0);
+        thePlayer->setFrozen(false);
+    }
+}
+
+static void
+ouchSound(DataArea*, Entity*, ivec3) noexcept {
+    playSoundEffect("sounds/ouch.oga");
+}
+
 Cave01::Cave01() noexcept {
-    scripts[StringView("sound_ouch")] = (TileScript)&Cave01::ouchSound;
+    scripts.allocate(hash_(StringView("sound_ouch"))) = ouchSound;
 }
 
 void
@@ -64,26 +82,14 @@ Cave01::onLoad() noexcept {
     });
     */
 
-    Player& player = Player::instance();
-    player.setFrozen(true);
-    player.setPhase("up");
+    thePlayer->setFrozen(true);
+    thePlayer->setPhase("up");
     area->setColorOverlay(255, 0, 0, 0);
 
-    add(new InProgressSound("sounds/rockfall.oga", [this]() {
-        add(new InProgressTimer(
-                3000,
-                [this](float percent) {
-                    U8 alpha = static_cast<U8>(255 - percent * 255);
-                    area->setColorOverlay(alpha, 0, 0, 0);
-                },
-                [this]() {
-                    area->setColorOverlay(0, 0, 0, 0);
-                    Player::instance().setFrozen(false);
-                }));
-    }));
-}
+    struct Action sound = makeSoundAction("sounds/rockfall.oga");
 
-void
-Cave01::ouchSound(Entity&) noexcept {
-    playSoundEffect("sounds/ouch.oga");
+    sound.next = xmalloc(struct Action, 1);
+    *sound.next = makeTimerAction(3000, fadeIn, area, 0);
+
+    add(sound);
 }

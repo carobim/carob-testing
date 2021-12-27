@@ -2,7 +2,6 @@
 
 #include "tiles/character.h"
 #include "tiles/client-conf.h"
-#include "tiles/cooldown.h"
 #include "tiles/vec.h"
 #include "util/assert.h"
 #include "util/compiler.h"
@@ -50,23 +49,24 @@ maybeMove(Character* c, U32 chance) noexcept {
     }
 }
 
-Function<void(Time)>
-AIWanderTile(Character* c, int chance, Time tryEvery) noexcept {
+void
+aiWanderTile(void* params_, Time dt) noexcept {
+    AIWanderTileParams* params = static_cast<AIWanderTileParams*>(params_);
+
     assert_(confMoveMode == MoveMode::TILE);
 
-    Cooldown cooldown(tryEvery);
-    return [c, chance, cooldown](Time dt) mutable {
-        cooldown.advance(dt);
-        if (cooldown.hasExpired()) {
-            cooldown.wrapAll();
-            maybeMove(c, chance);
-        }
+    params->cooldown.advance(dt);
+    if (params->cooldown.hasExpired()) {
+        params->cooldown.wrapAll();
+        maybeMove(params->c, params->chance);
     };
 }
 
-Function<void()>
-AIWanderTurn(Character* c, U32 chance) noexcept {
+void
+aiWanderTurn(void* params_) noexcept {
+    AIWanderTurnParams* params = static_cast<AIWanderTurnParams*>(params_);
+
     assert_(confMoveMode == MoveMode::TURN);
 
-    return [c, chance]() mutable { maybeMove(c, chance); };
+    maybeMove(params->c, params->chance);
 }

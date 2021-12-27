@@ -7,9 +7,6 @@
 class SecretRoom : public DataArea {
  public:
     SecretRoom() noexcept;
-
-    void bookSound() noexcept;
-    void ouchSound() noexcept;
 };
 
 #endif  // SRC_AREAS_SECRET_ROOM_H_

@@ -3,11 +3,8 @@
 
 #include "data/data-area.h"
 #include "util/compiler.h"
-#include "world/clouds.h"
 
 class Grove04 : public DataArea {
-    Clouds clouds;
-
  public:
     Grove04() noexcept;
 

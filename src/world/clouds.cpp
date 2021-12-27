@@ -1,69 +1,58 @@
 #include "world/clouds.h"
 
-#include "data/inprogress-timer.h"
+#include "data/action.h"
+#include "data/data-area.h"
 #include "os/c.h"
 #include "tiles/area.h"
 #include "tiles/vec.h"
 #include "util/compiler.h"
 #include "util/int.h"
+#include "util/new.h"
 #include "util/random.h"
 #include "util/string.h"
 
-Clouds::Clouds() noexcept : z(0.0) {}
+struct DestroyCloudParams {
+    Clouds* clouds;
+    Overlay* cloud;
+};
 
-void
-Clouds::setZ(float z) noexcept {
-    this->z = z;
+static void
+destroyCloud(DataArea*, void* data) noexcept {
+    fromCast(struct DestroyCloudParams, params, data);
+
+    params->cloud->destroy();
+
+    for (Size i = 0; i < params->clouds->clouds.size; i++) {
+        if (params->clouds->clouds[i] == params->cloud) {
+            params->clouds->clouds.erase(i);
+            break;
+        }
+    }
 }
 
-void
-Clouds::createRandomCloud(DataArea& dataArea) noexcept {
-    ivec3 areaDimensions = dataArea.area->grid.dim;
-
-    // Random location in Area.
-    vicoord tilePosition{
-            randU32(0, areaDimensions.x), randU32(0, areaDimensions.y), z};
-
-    createCloudAt(dataArea, tilePosition);
-}
-
-void
-Clouds::createCloudsRegularly(DataArea& dataArea,
-                              U32 minMS,
-                              U32 maxMS) noexcept {
-    U32 millis = randU32(minMS, maxMS);
-    dataArea.add(new InProgressTimer(millis, [this, &dataArea, minMS, maxMS]() {
-        ivec3 areaDimensions = dataArea.area->grid.dim;
-
-        // Right-hand-side of the Area.
-        vicoord position{areaDimensions.x + 1, randU32(0, areaDimensions.y), z};
-
-        createCloudAt(dataArea, position);
-
-        // Repeat.
-        createCloudsRegularly(dataArea, minMS, maxMS);
-    }));
-}
-
-void
-Clouds::createCloudAt(DataArea& dataArea, vicoord tilePosition) noexcept {
+//! Create a cloud, move it left until out of area, then destroy it.
+//! If the cloud would be created next to another, already existing
+//! cloud, do nothing.
+static void
+createCloudAt(Clouds* clouds,
+              DataArea* dataArea,
+              vicoord tilePosition) noexcept {
 #define SECONDS_TO_MILLISECONDS 1000.0
 #define LEFT -1
-// #define RIGHT 1
+    // #define RIGHT 1
 
-    ivec2 tileDimensions = dataArea.area->grid.tileDim;
+    ivec2 tileDimensions = dataArea->area->grid.tileDim;
 
-    fvec3 pixelPosition{
-            static_cast<float>(static_cast<I64>(tilePosition.x) *
-                               static_cast<I64>(tileDimensions.x)),
-            static_cast<float>(static_cast<I64>(tilePosition.y) *
-                               static_cast<I64>(tileDimensions.y)),
-            10.0};
+    fvec3 pixelPosition{static_cast<float>(static_cast<I64>(tilePosition.x) *
+                                           static_cast<I64>(tileDimensions.x)),
+                        static_cast<float>(static_cast<I64>(tilePosition.y) *
+                                           static_cast<I64>(tileDimensions.y)),
+                        10.0};
 
     float minimumAcceptableDistance =
             static_cast<float>(static_cast<I64>(tileDimensions.x) * 8);
 
-    for (Overlay* other : clouds) {
+    for (Overlay* other : clouds->clouds) {
         fvec3 otherPosition = other->getPixelCoord();
         float dist = distanceTo(pixelPosition, otherPosition);
         if (dist < minimumAcceptableDistance) {
@@ -72,33 +61,85 @@ Clouds::createCloudAt(DataArea& dataArea, vicoord tilePosition) noexcept {
     }
 
     String type = String("entities/clouds/cloud") << randU32(1, 4) << ".json";
-    Overlay* cloud =
-            dataArea.area->spawnOverlay(type, tilePosition, "stance");
+    Overlay* cloud = dataArea->area->spawnOverlay(type, tilePosition, "stance");
 
-    clouds.push(cloud);
+    clouds->clouds.push(cloud);
 
     ivec2 cloudSize = cloud->getImageSize();  // in pixels
     I32 cloudWidthInTiles =
             static_cast<I32>(ceilf(static_cast<float>(cloudSize.x) /
-                                  static_cast<float>(tileDimensions.x)));
+                                   static_cast<float>(tileDimensions.x)));
 
     // Drift just enough to get off screen.
     I32 tilesToDrift = LEFT * (tilePosition.x + cloudWidthInTiles);
     ivec2 drift{tilesToDrift * tileDimensions.x, 0};
 
-    I32 driftDuration =
-            static_cast<I32>((drift.x < 0 ? -drift.x : drift.x) /
-                             cloud->getSpeedInPixels() * SECONDS_TO_MILLISECONDS);
+    I32 driftDuration = static_cast<I32>((drift.x < 0 ? -drift.x : drift.x) /
+                                         cloud->getSpeedInPixels() *
+                                         SECONDS_TO_MILLISECONDS);
 
     cloud->drift(ivec2{drift.x, 0});
-    dataArea.add(new InProgressTimer(driftDuration, [this, cloud]() {
-        cloud->destroy();
 
-        for (Size i = 0; i < clouds.size; i++) {
-            if (clouds[i] == cloud) {
-                clouds.erase(i);
-                break;
-            }
-        }
-    }));
+    struct Action delay = makeDelayAction(driftDuration);
+
+    new2(struct DestroyCloudParams, params, clouds, clouds, cloud, cloud);
+    delay.next = xmalloc(struct Action, 1);
+    *delay.next = makeUnitAction(destroyCloud, params, free);
+
+    dataArea->add(delay);
+}
+
+struct OffscreenCloudParams {
+    Clouds* clouds;
+    U32 minMS;
+    U32 maxMS;
+};
+
+static void
+createOffscreenCloud(DataArea* area, void* data) noexcept {
+    fromCast(struct OffscreenCloudParams, params, data);
+
+    ivec3 areaDimensions = area->area->grid.dim;
+
+    // Right-hand-side of the Area.
+    vicoord position;
+    position.x = areaDimensions.x + 1;
+    position.y = randU32(0, areaDimensions.y);
+    position.z = params->clouds->z;
+
+    createCloudAt(params->clouds, area, position);
+
+    // Repeat.
+    params->clouds->createCloudsRegularly(area, params->minMS, params->maxMS);
+}
+
+void
+Clouds::createRandomCloud(DataArea* dataArea) noexcept {
+    ivec3 areaDimensions = dataArea->area->grid.dim;
+
+    // Random location in Area.
+    vicoord tilePosition;
+    tilePosition.x = randU32(0, areaDimensions.x);
+    tilePosition.y = randU32(0, areaDimensions.y);
+    tilePosition.z = z;
+
+    createCloudAt(this, dataArea, tilePosition);
+}
+
+void
+Clouds::createCloudsRegularly(DataArea* dataArea,
+                              U32 minMS,
+                              U32 maxMS) noexcept {
+    U32 millis = randU32(minMS, maxMS);
+
+    struct Action delay = makeDelayAction(millis);
+
+    new0(OffscreenCloudParams, params);
+    params->clouds = this;
+    params->minMS = minMS;
+    params->maxMS = maxMS;
+    delay.next = xmalloc(struct Action, 1);
+    *delay.next = makeUnitAction(createOffscreenCloud, params, free);
+
+    dataArea->add(delay);
 }
