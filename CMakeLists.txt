@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7)
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+if(CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE "DEFAULT")
 endif()
 
@@ -39,7 +39,8 @@ target_link_libraries(${EXE} PRIVATE tsunagari)
 
 if(NOT ${CMAKE_VERSION} VERSION_LESS 3.8.0)
     get_target_property(EXE_SOURCES ${EXE} SOURCES)
-    source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src
+    source_group(
+        TREE ${CMAKE_CURRENT_LIST_DIR}/src
         FILES ${EXE_SOURCES}
     )
 endif()
