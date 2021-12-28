@@ -39,5 +39,5 @@ target_link_libraries(${EXE} tsunagari)
 
 if(CMAKE_GTE_38)
     get_target_property(EXE_SOURCES ${EXE} SOURCES)
-    source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src FILES ${EXE_SOURCES})
+    source_group(TREE ${HERE}/src FILES ${EXE_SOURCES})
 endif()
