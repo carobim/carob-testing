@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 2.8.2...3.22)
+
+project(TsunagariTestingWorld C CXX)
 
 if(CMAKE_BUILD_TYPE STREQUAL "")
-    set(CMAKE_BUILD_TYPE "DEFAULT")
+    set(CMAKE_BUILD_TYPE DEFAULT)
 endif()
-
-project(TsunagariTestingWorld LANGUAGES CXX)
 
 add_subdirectory(Tsunagari)
 
@@ -35,12 +35,9 @@ add_executable(${EXE}
 )
 
 include_directories(${TSUNAGARI_INCLUDE_DIRECTORIES} src)
-target_link_libraries(${EXE} PRIVATE tsunagari)
+target_link_libraries(${EXE} tsunagari)
 
-if(NOT ${CMAKE_VERSION} VERSION_LESS 3.8.0)
+if(CMAKE_GTE_38)
     get_target_property(EXE_SOURCES ${EXE} SOURCES)
-    source_group(
-        TREE ${CMAKE_CURRENT_LIST_DIR}/src
-        FILES ${EXE_SOURCES}
-    )
+    source_group(TREE ${CMAKE_CURRENT_LIST_DIR}/src FILES ${EXE_SOURCES})
 endif()
