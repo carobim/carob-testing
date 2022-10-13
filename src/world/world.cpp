@@ -19,7 +19,7 @@
 static Hashmap<String, DataArea*> areas;
 
 StringView dataWorldName = "Testing World";
-StringView dataWorldAuthor = "Michael Reiley and Paul Merrill";
+StringView dataWorldAuthor = "Sei Satzparad and Paul Merrill";
 StringView dataWorldVersion = "1";
 
 enum MoveMode dataWorldMoveMode = MoveMode::TILE;
