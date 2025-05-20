@@ -1,35 +1,35 @@
-# Tsunagari-Testing
+# Carob Testing
 
-![MIT Licensed](https://img.shields.io/github/license/TsunagariEngine/Tsunagari-Testing.svg)
-[![Build Status](https://travis-ci.org/TsunagariEngine/Tsunagari-Testing.svg?branch=master)](https://travis-ci.org/TsunagariEngine/Tsunagari-Testing)
-[![LoC](https://tokei.rs/b1/github/TsunagariEngine/Tsunagari-Testing)](https://github.com/Aaronepower/tokei)
+![MIT Licensed](https://img.shields.io/github/license/carobim/carob.svg)
+[![Build Status](https://travis-ci.org/carobim/carob.svg?branch=master)](https://travis-ci.org/carobim/carob)
+[![LoC](https://tokei.rs/b1/github/carobim/carob)](https://github.com/Aaronepower/tokei)
 
-A tech demo world for [Tsunagari](https://github.com/TsunagariEngine/Tsunagari).
+A tech demo world for [Carob](https://github.com/carobim/carob).
 
 ## Setup
 
 ### Cloning
 
 ```bash
-git clone --recurse-submodules https://github.com/TsunagariEngine/Tsunagari-Testing.git
-cd Tsunagari-Testing
+git clone --recurse-submodules https://github.com/carobim/carob-testing.git
+cd carob-testing
 ```
 
 ### Acquiring `Autumn_Forest.oga`
 
 From the root directory:
 
-#### Method 1: Use `youtube-dl` and `ffmpeg`
+#### Method 1: Use `yt-dlp` and `ffmpeg`
 
 ```bash
 # macOS
-brew install youtube-dl
-brew install --with-libvorbis ffmpeg
+brew install yt-dlp
+brew install ffmpeg
 ```
 
 ```bash
 cd data/music
-youtube-dl -x -f 22 -o Autumn_Forest.mp4 'https://www.youtube.com/watch?v=v2qOllkxwiw'
+yt-dlp -x -f 22 -o Autumn_Forest.mp4 'https://www.youtube.com/watch?v=v2qOllkxwiw'
 ffmpeg -i Autumn_Forest.m4a -c:a libvorbis Autumn_Forest.oga
 cd ../..
 ```
@@ -89,41 +89,41 @@ cd ..
 Build the resources:
 
 ```bash
-Tsunagari/scripts/build-config.sh
-Tsunagari/scripts/build-world.sh
+carob/scripts/build-config.sh
+carob/scripts/build-world.sh
 ```
 
 Build the application bundle/install to bin:
 
 ```bash
 # macOS
-Tsunagari/scripts/build-bundle-debug.sh
+carob/scripts/build-bundle-debug.sh
 ```
 
 ```bash
 # Ubuntu
-cp build-debug/tsunagari bin/
+cp build-debug/carob bin/
 ```
 
 ### Running
 
 #### Using a GUI file manager
 
-On macOS, open `Tsunagari.app` in Finder.
+On macOS, open `Carob.app` in Finder.
 
-On Ubuntu, open `bin/tsunagari` in Files.
+On Ubuntu, open `bin/carob` in Files.
 
 #### Using a terminal
 
 ```bash
 # macOS
-Tsunagari.app/Contents/MacOS/Tsunagari
+Carob.app/Contents/MacOS/Carob
 ```
 
 ```bash
 # Ubuntu
 cd bin
-./tsunagari
+./carob
 ```
 
 ### Debugging
@@ -132,13 +132,13 @@ From the root directory:
 
 ```bash
 # macOS
-lldb Tsunagari.app/Contents/MacOS/Tsunagari
+lldb Carob.app/Contents/MacOS/Carob
 ```
 
 ```bash
 # Ubuntu
 cd bin
-gdb ./tsunagari
+gdb ./carob
 ```
 
 ## TODO
