@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8.2...3.22)
 
-project(TsunagariTestingWorld C CXX)
+project(CarobTestingWorld C CXX)
 
 if(CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE DEFAULT)
 endif()
 
-add_subdirectory(Tsunagari)
+add_subdirectory(carob)
 
 set(EXE testing)
 
@@ -35,7 +35,7 @@ add_executable(${EXE}
 )
 
 include_directories(${TSUNAGARI_INCLUDE_DIRECTORIES} src)
-target_link_libraries(${EXE} tsunagari)
+target_link_libraries(${EXE} carob)
 
 if(CMAKE_GTE_38)
     get_target_property(EXE_SOURCES ${EXE} SOURCES)
