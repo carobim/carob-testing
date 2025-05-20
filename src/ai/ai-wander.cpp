@@ -10,17 +10,25 @@
 
 static ivec2
 randomFacing() noexcept {
+    ivec2 v;
     switch (randU32(0, 3)) {
     case 0:
-        return {-1, 0};
+        v.x = -1;
+        v.y = 0;
     case 1:
-        return {+1, 0};
+        v.x = +1;
+        v.y = 0;
     case 2:
-        return {0, -1};
+        v.x = 0;
+        v.y = -1;
     case 3:
-        return {0, +1};
+        v.x = 0;
+        v.y = +1;
+    default:
+        v.x = 0;
+        v.y = 0;
     }
-    return {0, 0};
+    return v;
 }
 
 //! Move the character.

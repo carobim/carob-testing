@@ -33,7 +33,7 @@ vicoord dataWorldStartCoords = {15, 22, 0.0};
 
 StringView dataWorldDatafile = "./testing.world";
 
-bool
+void
 dataWorldInit() noexcept {
     areas["areas/basement.json"] = new DataArea;  // no special logic
     areas["areas/bigtree.json"] = new BigTreeArea;
@@ -44,7 +44,6 @@ dataWorldInit() noexcept {
     areas["areas/grove06.json"] = new Grove06;
     areas["areas/secret_room.json"] = new SecretRoom;
     logInfo("TestingDataWorld", "Ready to go");
-    return true;
 }
 
 DataArea*

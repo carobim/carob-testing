@@ -95,8 +95,15 @@ onOpenChest(DataArea* area, Entity*, ivec3) noexcept {
     TileSet* objects = area->area->getTileSet("areas/tiles/objects.bmp");
 
     // Change to closed chest to open chest. Bottom and top halves.
-    area->area->grid.setTileType(vicoord{5, 20, -0.1}, objects->at(1, 5));
-    area->area->grid.setTileType(vicoord{5, 21, -0.1}, objects->at(1, 6));
+    vicoord coord;
+    coord.x = 5;
+    coord.y = 20;
+    coord.z = -0.1;
+    area->area->grid.setTileType(coord, objects->at(1, 5));
+    coord.x = 5;
+    coord.y = 21;
+    coord.z = -0.1;
+    area->area->grid.setTileType(coord, objects->at(1, 6));
     area->area->requestRedraw();
 
     playSoundEffect("sounds/door.oga");
@@ -112,8 +119,12 @@ Grove01::Grove01() noexcept {
 void
 Grove01::onLoad() noexcept {
     // Create a wandering wizard NPC.
+    vicoord coord;
+    coord.x = 16;
+    coord.y = 22;
+    coord.z = 0.0;
     Character* wizard = area->spawnNPC(
-            "entities/wizard/wizard.json", vicoord{16, 22, 0.0}, "down");
+            "entities/wizard/wizard.json", coord, "down");
 
     // Make it move.
     new2(AIWanderTileParams, params, c, wizard, chance, 4);

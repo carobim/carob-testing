@@ -33,13 +33,24 @@ onOpenDoor(DataArea* area, Entity*, ivec3) noexcept {
     openedDoor = true;
 
     // torch which activated this trigger should make "ouch" now
-    ivec3 torch = area->area->grid.virt2phys(vicoord{6, 0, 0.0});
+    vicoord coord;
+    coord.x = 6;
+    coord.y = 0;
+    coord.z = 0.0;
+    ivec3 torch = area->area->grid.virt2phys(coord);
     area->area->grid.scripts[TileGrid::SCRIPT_TYPE_USE][torch] = ouchSound;
 
     // closed exit on north wall, object layer
-    ivec3 door = area->area->grid.virt2phys(vicoord{4, 0, 0.0});
-    area->area->grid.exits[EXIT_NORMAL][door] =
-            Exit{"areas/secret_room.json", 4, 5, 0.0};
+    coord.x = 4;
+    coord.y = 0;
+    coord.z = 0.0;
+    ivec3 door = area->area->grid.virt2phys(coord);
+    Exit exit;
+    exit.area = "areas/secret_room.json";
+    exit.coords.x = 4;
+    exit.coords.y = 5;
+    exit.coords.z = 0.0;
+    area->area->grid.exits[EXIT_NORMAL][door] = exit;
     area->area->grid.flags[door] &= ~TILE_NOWALK;
 
     TileSet* tileSet = area->area->getTileSet("areas/tiles/indoors.bmp");

@@ -34,7 +34,7 @@ add_executable(${EXE}
     ${HERE}/src/world/world.cpp
 )
 
-include_directories(${TSUNAGARI_INCLUDE_DIRECTORIES} src)
+include_directories(${CAROB_INCLUDE_DIRECTORIES} src)
 target_link_libraries(${EXE} carob)
 
 if(CMAKE_GTE_38)

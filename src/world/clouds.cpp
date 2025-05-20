@@ -43,16 +43,18 @@ createCloudAt(Clouds* clouds,
 
     ivec2 tileDimensions = dataArea->area->grid.tileDim;
 
-    fvec3 pixelPosition{static_cast<float>(static_cast<I64>(tilePosition.x) *
-                                           static_cast<I64>(tileDimensions.x)),
-                        static_cast<float>(static_cast<I64>(tilePosition.y) *
-                                           static_cast<I64>(tileDimensions.y)),
-                        10.0};
+    fvec3 pixelPosition;
+    pixelPosition.x = static_cast<float>(static_cast<I64>(tilePosition.x) *
+                                         static_cast<I64>(tileDimensions.x));
+    pixelPosition.x = static_cast<float>(static_cast<I64>(tilePosition.y) *
+                                         static_cast<I64>(tileDimensions.y));
+    pixelPosition.x = 10.0;
 
     float minimumAcceptableDistance =
             static_cast<float>(static_cast<I64>(tileDimensions.x) * 8);
 
-    for (Overlay* other : clouds->clouds) {
+    for (Size i = 0; i < clouds->clouds.size; i++) {
+        Overlay* other = clouds->clouds.data[i];
         fvec3 otherPosition = other->getPixelCoord();
         float dist = distanceTo(pixelPosition, otherPosition);
         if (dist < minimumAcceptableDistance) {
@@ -72,13 +74,18 @@ createCloudAt(Clouds* clouds,
 
     // Drift just enough to get off screen.
     I32 tilesToDrift = LEFT * (tilePosition.x + cloudWidthInTiles);
-    ivec2 drift{tilesToDrift * tileDimensions.x, 0};
+    ivec2 drift;
+    drift.x = tilesToDrift * tileDimensions.x;
+    drift.y = 0;
 
     I32 driftDuration = static_cast<I32>((drift.x < 0 ? -drift.x : drift.x) /
                                          cloud->getSpeedInPixels() *
                                          SECONDS_TO_MILLISECONDS);
 
-    cloud->drift(ivec2{drift.x, 0});
+    ivec2 v;
+    v.x = drift.x;
+    v.y = 0;
+    cloud->drift(v);
 
     struct Action delay = makeDelayAction(driftDuration);
 

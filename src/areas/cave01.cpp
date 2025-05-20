@@ -56,7 +56,7 @@ fadeIn(DataArea*, void* data, float progress) noexcept {
     }
     else {
         area->setColorOverlay(0, 0, 0, 0);
-        thePlayer->setFrozen(false);
+        player.setFrozen(false);
     }
 }
 
@@ -82,8 +82,8 @@ Cave01::onLoad() noexcept {
     });
     */
 
-    thePlayer->setFrozen(true);
-    thePlayer->setPhase("up");
+    player.setFrozen(true);
+    player.setPhase("up");
     area->setColorOverlay(255, 0, 0, 0);
 
     struct Action sound = makeSoundAction("sounds/rockfall.oga");
