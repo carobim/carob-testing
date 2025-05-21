@@ -46,9 +46,9 @@ createCloudAt(Clouds* clouds,
     fvec3 pixelPosition;
     pixelPosition.x = static_cast<float>(static_cast<I64>(tilePosition.x) *
                                          static_cast<I64>(tileDimensions.x));
-    pixelPosition.x = static_cast<float>(static_cast<I64>(tilePosition.y) *
+    pixelPosition.y = static_cast<float>(static_cast<I64>(tilePosition.y) *
                                          static_cast<I64>(tileDimensions.y));
-    pixelPosition.x = 10.0;
+    pixelPosition.z = 10.0;
 
     float minimumAcceptableDistance =
             static_cast<float>(static_cast<I64>(tileDimensions.x) * 8);
