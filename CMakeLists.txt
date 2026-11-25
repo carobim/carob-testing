@@ -35,7 +35,7 @@ add_executable(${EXE}
 )
 
 include_directories(${CAROB_INCLUDE_DIRECTORIES} src)
-target_link_libraries(${EXE} carob)
+target_link_libraries(${EXE} carob cutil)
 
 if(CMAKE_GTE_38)
     get_target_property(EXE_SOURCES ${EXE} SOURCES)
